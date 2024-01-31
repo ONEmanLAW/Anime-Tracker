@@ -1,9 +1,11 @@
 <script>
+import SidebarLink from './SidebarLink'
 import { collapsed, toggleSidebar, sidebarWidth} from './state'
 
 
   export default {
     props: {},
+    components: { SidebarLink },
     setup() {
       return { collapsed, toggleSidebar, sidebarWidth }
     }
@@ -19,6 +21,12 @@ import { collapsed, toggleSidebar, sidebarWidth} from './state'
       </span>
       <span v-else>Vue Sidebar</span>
     </h1>
+
+    <SidebarLink>Anime</SidebarLink>
+    <SidebarLink>My Anime</SidebarLink>
+    <SidebarLink>Stats</SidebarLink>
+    <SidebarLink>Suggestion</SidebarLink>
+    
 
     <span class="collapse-icon" @click="toggleSidebar" :class="{ 'rotate-180' : collapse }">
       <i class='bx bx-right-arrow-alt'></i>
