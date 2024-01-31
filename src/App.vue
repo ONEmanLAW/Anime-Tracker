@@ -41,7 +41,7 @@ const addAnime = anime => {
   query.value = ''
 
   my_anime.value.push({
-    id: anime.mal.id,
+    id: anime.mal_id,
     title: anime.title,
     image: anime.images.jpg.image_url,
     total_episodes: anime.episodes,
@@ -91,6 +91,22 @@ onMounted(() => {
           <span class="flex-1"></span>
           <button @click="addAnime(anime)">Add to my Anime</button>
         </div>
+      </div>
+    </div>
+
+    <div class="myanime" v-if="my_anime.length > 0">
+      <h2>My anime</h2>
+
+      <div v-for="anime in my_anime_asc" class="anime">
+        <img :src="anime.image" />
+        <h3>{{ anime.title }}</h3>
+        <div class="flex-1"></div>
+        <span class="episodes">
+          {{ anime.watched_episodes }} / {{ anime.total_episodes }}
+        </span>
+        <button v-if="anime.total_episodes !== anime.watched_episodes" @click="increaseWatch(anime)">+</button>
+        
+        <button v-if="anime.watched_episodes > 0" @click="decreaseWatch(anime)">-</button>
       </div>
     </div>
   </main>
