@@ -1,9 +1,9 @@
 <script setup>
 import Sidebar from "@/components/sidebar/Sidebar.vue";
-import { onMounted } from "vue";
+import {ref, onMounted } from "vue";
 import { useAnimeStore } from "@/stores/counter";
 
-
+const sidebarWidth = ref('200px');
 
 const animeStore = useAnimeStore();
 

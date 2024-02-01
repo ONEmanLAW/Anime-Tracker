@@ -4,6 +4,7 @@ export const useAnimeStore = defineStore({
   id: 'animeStore',
   state: () => ({
     animeList: [],
+    availableGenres: [],
   }),
   actions: {
     addAnime(anime) {
@@ -20,6 +21,10 @@ export const useAnimeStore = defineStore({
 
     getAnimeList() {
       return this.animeList
+    },
+
+    setAvailableGenres(genres) {
+      this.availableGenres = genres;
     },
 
     persistAnimeList() {

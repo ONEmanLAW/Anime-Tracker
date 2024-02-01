@@ -29,7 +29,7 @@ const addAnime = anime => {
     title: anime.title,
     image: anime.images.jpg.image_url,
     total_episodes: anime.episodes,
-    watched_episodes: 0
+    watched_episodes: 0,
   })
 }
 </script>
