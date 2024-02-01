@@ -1,31 +1,34 @@
-<script>
-  import { computed } from 'vue'
+<script setup>
+  import { computed, onMounted } from 'vue'
   import { useRoute } from 'vue-router'
-  import { collasped } from './state'
+  import { collapsed } from './state'
 
-  export default {
-    props: {
-      to: { type: String, required: true },
-      icon: { type: String, required: true}
+  defineProps ({
+    to: {
+      type: String,
+      required: true
     },
-    setup(props) {
-      const route = useRoute()
-      const isActive = computed(() => route.path === props.to)
-      return { isActive, collasped }
-    }
-  }
+  });
+
+  onMounted((props) => {
+    const route = useRoute()
+    const isActive = computed(() => route.path === props.to)
+    return { isActive, collapsed }
+  });
+
 </script>
 
+
 <template>
-  <router-link :to="to" class="link" :class="{ active: isActive }">
-    <i class="icon" :class="icon" />
+  <router-link :to="to" class="link" :class="{ active : isActive }">
     <transition name="fade">
-      <span v-if="!collasped">
+      <span v-if="!collapsed">
         <slot />
       </span>
     </transition>
   </router-link>
 </template>
+
 
 <style scoped>
 .fade-enter-active,

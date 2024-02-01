@@ -1,6 +1,6 @@
 <template>
-  <div class="about">
-    <h1>The Anime Page</h1>
+  <div class="dashboard">
+    <h1>The Dashboard Page</h1>
   </div>
 </template>
 

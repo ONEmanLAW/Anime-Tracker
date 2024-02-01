@@ -67,12 +67,12 @@ import { sidebarWidth } from './components/sidebar/state'
 
   const increaseWatch = anime => {
     anime.watched_episodes++
-    localStorage.setItem('my_anime', JSON.stringify(my.anime.value))
+    localStorage.setItem('my_anime', JSON.stringify(my_anime.value))
   }
 
   const decreaseWatch = anime => {
     anime.watched_episodes--
-    localStorage.setItem('my_anime', JSON.stringify(my.anime.value))
+    localStorage.setItem('my_anime', JSON.stringify(my_anime.value))
   }
 
   onMounted(() => {
