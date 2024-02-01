@@ -1,89 +1,53 @@
 <script setup>
-  import { ref, computed} from 'vue'
-  import { useAnimeStore } from '@/stores/counter'
+import { computed } from 'vue'
+import { useAnimeStore } from '@/stores/counter'
 
+const animeStore = useAnimeStore()
 
-  const query = ref ('')
-  const my_anime = ref ([])
-  const search_results = ref ([])
+const my_anime_asc = computed(() => {
+  const animeList = animeStore.getAnimeList() || [];
+  return animeList.sort((a, b) => {
+    return a.title && b.title ? a.title.localeCompare(b.title) : 0;
+  });
+})
 
-  const animeStore = useAnimeStore()
+const increaseWatch = anime => {
+  animeStore.increaseWatch(anime)
+}
 
+const decreaseWatch = anime => {
+  animeStore.decreaseWatch(anime)
+}
 
-  // Permet de lire de A-Z
-  const my_anime_asc = computed(() => {
-    return animeStore.getAnimeList().sort((a, b) => {
-      return a.title.localeCompare(b.title)
-    })
-  })
-
-  const addAnime = anime => {
-    search_results.value = []
-    query.value = ''
-
-    animeStore.addAnime({
-      id: anime.mal_id,
-      title: anime.title,
-      image: anime.images.jpg.image_url,
-      total_episodes: anime.episodes,
-      // Vient pas de L'Api
-      watched_episodes: 0
-    })
-
-    localStorage.setItem('my_anime', JSON.stringify(my_anime.value))
-  }
-
-  const increaseWatch = anime => {
-    anime.watched_episodes++
-    localStorage.setItem('my_anime', JSON.stringify(my_anime.value))
-  }
-
-  const decreaseWatch = anime => {
-    anime.watched_episodes--
-    localStorage.setItem('my_anime', JSON.stringify(my_anime.value))
-  }
+const removeAnime = anime => {
+  animeStore.removeAnime(anime)
+}
 </script>
 
+
 <template>
- <main>
-    <div class="results" v-if="search_results.length > 0">
-      <div class="result" v-for="anime in search_results">
-        <img :src="anime.images.jpg.image_url" />
-        <div class="details">
-          <h3> {{ anime.title }}</h3>
-          <p :title="anime.synopsis" v-if="anime.synopsis">
-            {{ anime.synopsis.slice(0, 120) }}
-          </p>
-          <span class="flex-1"></span>
-          <button @click="addAnime(anime)">Add to my Anime</button>
-        </div>
-      </div>
-    </div>
+  <main>
+    <h1>My Anime</h1>
 
-    <div class="myanime" v-if="my_anime.length > 0">
-      <h2>My anime</h2>
-
-      <div v-for="anime in my_anime_asc" class="anime">
+    <div class="results" v-if="my_anime_asc.length > 0">
+      <div class="result" v-for="anime in my_anime_asc">
         <img :src="anime.image" />
-        <h3>{{ anime.title }}</h3>
-        <div class="flex-1"></div>
-        <span class="episodes">
-          {{ anime.watched_episodes }} / {{ anime.total_episodes }}
-        </span>
-        <button v-if="anime.total_episodes !== anime.watched_episodes" @click="increaseWatch(anime)">+</button>
-
-        <button v-if="anime.watched_episodes > 0" @click="decreaseWatch(anime)">-</button>
+        <div class="details">
+          <h3>{{ anime.title }}</h3>
+          <span class="flex-1"></span>
+          <span class="episodes">
+            {{ anime.watched_episodes }} / {{ anime.total_episodes }}
+          </span>
+          <button v-if="anime.total_episodes !== anime.watched_episodes" @click="increaseWatch(anime)">+</button>
+          <button v-if="anime.watched_episodes > 0" @click="decreaseWatch(anime)">-</button>
+          <button @click="removeAnime(anime)">Supprimer</button>
+        </div>
       </div>
     </div>
   </main>
 </template>
 
+
 <style>
-  @media (min-width: 1024px) {
-  .about {
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-  }
-}
+
 </style>

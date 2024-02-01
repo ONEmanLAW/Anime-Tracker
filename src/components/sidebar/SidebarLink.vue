@@ -1,5 +1,5 @@
 <script setup>
-  import { computed, onMounted } from 'vue'
+  import {ref, computed, onMounted } from 'vue'
   import { useRoute } from 'vue-router'
   import { collapsed } from './state'
 
@@ -10,12 +10,13 @@
     },
   });
 
+  const isActive = ref(false);
+  
   onMounted((props) => {
     const route = useRoute()
     const isActive = computed(() => route.path === props.to)
     return { isActive, collapsed }
   });
-
 </script>
 
 
