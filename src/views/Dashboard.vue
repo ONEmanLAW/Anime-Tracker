@@ -7,7 +7,7 @@
 </template>
 
 <script setup>
-import { useAnimeStore } from '@/stores/counter';
+import { useAnimeStore } from '@/stores/animeStore';
 import { computed } from 'vue';
 
 const animeStore = useAnimeStore();

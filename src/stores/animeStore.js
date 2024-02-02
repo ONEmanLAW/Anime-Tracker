@@ -9,6 +9,7 @@ export const useAnimeStore = defineStore({
   actions: {
     addAnime(anime) {
       if (!this.animeList.some(a => a.id === anime.id)) {
+        anime.rating = 0;
         this.animeList.push(anime)
         this.persistAnimeList()
       }

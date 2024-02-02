@@ -1,6 +1,6 @@
 <script setup>
 import { ref } from 'vue'
-import { useAnimeStore } from '@/stores/counter'
+import { useAnimeStore } from '@/stores/animeStore'
 
 const query = ref('')
 const search_results = ref([])
@@ -14,7 +14,6 @@ const searchAnime = () => {
       search_results.value = res.data
     })
 }
-
 
 const handleInput = event => {
   if (!event.target.value) {

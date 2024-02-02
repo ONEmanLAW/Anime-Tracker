@@ -1,8 +1,6 @@
 <script setup>
 import SidebarLink from './SidebarLink.vue';
 import { collapsed, toggleSidebar, sidebarWidth } from './state';
-
-
 </script>
 
 
@@ -26,15 +24,6 @@ import { collapsed, toggleSidebar, sidebarWidth } from './state';
     </span>
   </div>
 </template>
-
-
-<style>
-:root {
-  --sidebar-bg-color: #cf0a0a;
-  --sidebar-bg-hover: #dfdcdc;
-  --sidebar-bg-active: #000000;
-}
-</style>
 
 
 <style scoped>
