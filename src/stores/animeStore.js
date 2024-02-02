@@ -1,4 +1,6 @@
-import { defineStore } from 'pinia'
+// animeStore.js
+
+import { defineStore } from 'pinia';
 
 export const useAnimeStore = defineStore({
   id: 'animeStore',
@@ -10,18 +12,18 @@ export const useAnimeStore = defineStore({
     addAnime(anime) {
       if (!this.animeList.some(a => a.id === anime.id)) {
         anime.rating = 0;
-        this.animeList.push(anime)
-        this.persistAnimeList()
+        this.animeList.push(anime);
+        this.persistAnimeList();
       }
     },
 
-    removeAnime(anime) {
-      this.animeList = this.animeList.filter(a => a.id !== anime.id)
-      this.persistAnimeList()
+    removeAnime(animeId) {
+      this.animeList = this.animeList.filter(a => a.id !== animeId);
+      this.persistAnimeList();
     },
 
     getAnimeList() {
-      return this.animeList
+      return this.animeList;
     },
 
     setAvailableGenres(genres) {
@@ -29,24 +31,24 @@ export const useAnimeStore = defineStore({
     },
 
     persistAnimeList() {
-      localStorage.setItem('animeList', JSON.stringify(this.animeList))
+      localStorage.setItem('animeList', JSON.stringify(this.animeList));
     },
 
     loadAnimeListFromLocalStorage() {
-      const storedList = localStorage.getItem('animeList')
-      this.animeList = storedList ? JSON.parse(storedList) : []
+      const storedList = localStorage.getItem('animeList');
+      this.animeList = storedList ? JSON.parse(storedList) : [];
     },
 
     increaseWatch(anime) {
-      anime.watched_episodes++
-      this.persistAnimeList()
+      anime.watched_episodes++;
+      this.persistAnimeList();
     },
 
     decreaseWatch(anime) {
       if (anime.watched_episodes > 0) {
-        anime.watched_episodes--
-        this.persistAnimeList()
+        anime.watched_episodes--;
+        this.persistAnimeList();
       }
     },
   },
-})
+});
