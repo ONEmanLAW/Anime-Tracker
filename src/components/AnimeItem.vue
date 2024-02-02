@@ -14,9 +14,6 @@
       <select id="rating" v-model="anime.rating">
         <option v-for="i in 11" :key="i" :value="i - 1">{{ i - 1 }}</option>
       </select>
-      <p v-if="anime.watched_episodes === anime.total_episodes">
-        <strong>Statut:</strong> Fini
-      </p>
     </div>
   </div>
 </template>
