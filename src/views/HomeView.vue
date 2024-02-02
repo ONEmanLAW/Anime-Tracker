@@ -1,36 +1,36 @@
 <script setup>
-import { ref } from 'vue'
-import { useAnimeStore } from '@/stores/animeStore'
+  import { ref } from 'vue'
+  import { useAnimeStore } from '@/stores/animeStore'
 
-const query = ref('')
-const search_results = ref([])
-const animeStore = useAnimeStore()
+  const query = ref('')
+  const search_results = ref([])
+  const animeStore = useAnimeStore()
 
-const searchAnime = () => {
-  const url = `https://api.jikan.moe/v4/anime?q=${query.value}`
-  fetch(url)
-    .then(res => res.json())
-    .then(res => {
-      search_results.value = res.data
-    })
-}
-
-const handleInput = event => {
-  if (!event.target.value) {
-    search_results.value = []
+  const searchAnime = () => {
+    const url = `https://api.jikan.moe/v4/anime?q=${query.value}`
+    fetch(url)
+      .then(res => res.json())
+      .then(res => {
+        search_results.value = res.data
+      })
   }
-}
+
+  const handleInput = event => {
+    if (!event.target.value) {
+      search_results.value = []
+    }
+  }
 
 
-const addAnime = anime => {
-  animeStore.addAnime({
-    id: anime.mal_id,
-    title: anime.title,
-    image: anime.images.jpg.image_url,
-    total_episodes: anime.episodes,
-    watched_episodes: 0,
-  })
-}
+  const addAnime = anime => {
+    animeStore.addAnime({
+      id: anime.mal_id,
+      title: anime.title,
+      image: anime.images.jpg.image_url,
+      total_episodes: anime.episodes,
+      watched_episodes: 0,
+    })
+  }
 </script>
 
 
@@ -62,8 +62,3 @@ const addAnime = anime => {
     </div>
   </main>
 </template>
-
-
-<style>
-
-</style>

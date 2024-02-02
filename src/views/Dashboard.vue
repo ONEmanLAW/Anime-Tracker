@@ -1,3 +1,16 @@
+<script setup>
+  import { useAnimeStore } from '@/stores/animeStore';
+  import { computed } from 'vue';
+
+  const animeStore = useAnimeStore();
+
+  const totalWatchedEpisodes = computed(() => {
+    const animeList = animeStore.getAnimeList();
+    return animeList.reduce((total, anime) => total + anime.watched_episodes, 0);
+  });
+</script>
+
+
 <template>
   <div>
     <h1>Dashboard</h1>
@@ -5,16 +18,3 @@
     <p>Nombre total d'épisodes vus: {{ totalWatchedEpisodes }}</p>
   </div>
 </template>
-
-<script setup>
-import { useAnimeStore } from '@/stores/animeStore';
-import { computed } from 'vue';
-
-const animeStore = useAnimeStore();
-
-const totalWatchedEpisodes = computed(() => {
-  const animeList = animeStore.getAnimeList();
-  return animeList.reduce((total, anime) => total + anime.watched_episodes, 0);
-});
-
-</script>

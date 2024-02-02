@@ -1,16 +1,17 @@
 <script setup>
-import Sidebar from "@/components/sidebar/Sidebar.vue";
-import {ref, onMounted } from "vue";
-import { useAnimeStore } from "@/stores/animeStore";
+  import Sidebar from "@/components/sidebar/Sidebar.vue";
+  import {ref, onMounted } from "vue";
+  import { useAnimeStore } from "@/stores/animeStore";
 
-const sidebarWidth = ref('200px');
+  const sidebarWidth = ref('200px');
 
-const animeStore = useAnimeStore();
+  const animeStore = useAnimeStore();
 
-onMounted(() => {
-  animeStore.loadAnimeListFromLocalStorage();
-});
+  onMounted(() => {
+    animeStore.loadAnimeListFromLocalStorage();
+  });
 </script>
+
 
 <template>
   <div>
@@ -20,7 +21,3 @@ onMounted(() => {
     </div>
   </div>
 </template>
-
-<style>
-
-</style>
