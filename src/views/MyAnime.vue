@@ -31,7 +31,7 @@ const removeAnime = anime => {
     <h1>My Anime</h1>
 
     <div class="results" v-if="my_anime_asc.length > 0">
-      <div class="result" v-for="anime in my_anime_asc">
+      <div class="result" v-for="anime in my_anime_asc" :key="anime.id">
         <img :src="anime.image" />
         <div class="details">
           <h3>{{ anime.title }}</h3>

@@ -48,7 +48,7 @@ const addAnime = anime => {
     </form>
 
     <div class="results" v-if="search_results.length > 0">
-      <div class="result" v-for="anime in search_results">
+      <div class="result" v-for="anime in search_results" :key="anime.id">
         <img :src="anime.images.jpg.image_url" />
         <div class="details">
           <h3> {{ anime.title }}</h3>
