@@ -9,10 +9,10 @@
   const searchAnime = () => {
     const url = `https://api.jikan.moe/v4/anime?q=${query.value}`
     fetch(url)
-      .then(res => res.json())
-      .then(res => {
-        search_results.value = res.data
-      })
+    .then(res => res.json())
+    .then(res => {
+      search_results.value = res.data
+    })
   }
 
   const handleInput = event => {
@@ -43,7 +43,7 @@
         type="text"
         placeholder="search for an anime ..." 
         v-model="query" 
-        @input="handleInput" />
+      @input="handleInput" />
       <button type="submit">Search</button>
     </form>
 
