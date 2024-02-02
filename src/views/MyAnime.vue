@@ -1,3 +1,32 @@
+<script setup>
+import { computed } from 'vue';
+import { useAnimeStore } from '@/stores/animeStore';
+import AnimeItem from '@/components/AnimeItem.vue';
+
+const animeStore = useAnimeStore();
+
+const finishedAnimeList = computed(() => {
+  return animeStore.getAnimeList().filter(anime => anime.watched_episodes === anime.total_episodes);
+});
+
+const unfinishedAnimeList = computed(() => {
+  return animeStore.getAnimeList().filter(anime => anime.watched_episodes !== anime.total_episodes);
+});
+
+const updateAnime = (updatedAnime) => {
+  animeStore.removeAnime(updatedAnime.id);
+  animeStore.addAnime(updatedAnime);
+};
+
+const removeAnime = (animeId) => {
+  animeStore.removeAnime(animeId);
+};
+
+// Exposez ces fonctions dans le scope global
+window.updateAnime = updateAnime;
+window.removeAnime = removeAnime;
+</script>
+
 <template>
   <main>
     <h1>My Anime</h1>
@@ -19,23 +48,3 @@
     </div>
   </main>
 </template>
-
-<script setup>
-  import { computed } from 'vue';
-  import { useAnimeStore } from '@/stores/animeStore';
-  import AnimeItem from '@/components/AnimeItem.vue';
-
-  const animeStore = useAnimeStore();
-
-  const finishedAnimeList = computed(() => {
-    return animeStore.getAnimeList().filter(anime => anime.watched_episodes === anime.total_episodes);
-  });
-
-  const unfinishedAnimeList = computed(() => {
-    return animeStore.getAnimeList().filter(anime => anime.watched_episodes !== anime.total_episodes);
-  });
-
-  const removeAnime = (animeId) => {
-    animeStore.removeAnime(animeId);
-  };
-</script>
