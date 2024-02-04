@@ -7,12 +7,12 @@
   const animeStore = useAnimeStore()
 
   const searchAnime = () => {
-    const url = `https://api.jikan.moe/v4/anime?q=${query.value}`
+    const url = `${animeStore.apiUrl}?q=${query.value}`
     fetch(url)
-    .then(res => res.json())
-    .then(res => {
-      search_results.value = res.data
-    })
+      .then(res => res.json())
+      .then(res => {
+        search_results.value = res.data
+      })
   }
 
   const handleInput = event => {
@@ -20,7 +20,6 @@
       search_results.value = []
     }
   }
-
 
   const addAnime = anime => {
     animeStore.addAnime({
@@ -33,7 +32,6 @@
   }
 </script>
 
-
 <template>
   <main>
     <h1>My Anime Tracker</h1>
@@ -43,7 +41,7 @@
         type="text"
         placeholder="search for an anime ..." 
         v-model="query" 
-      @input="handleInput" />
+        @input="handleInput" />
       <button type="submit">Search</button>
     </form>
 
@@ -51,7 +49,7 @@
       <div class="result" v-for="anime in search_results" :key="anime.id">
         <img :src="anime.images.jpg.image_url" />
         <div class="details">
-          <h3> {{ anime.title }}</h3>
+          <h3>{{ anime.title }}</h3>
           <p :title="anime.synopsis" v-if="anime.synopsis">
             {{ anime.synopsis.slice(0, 120) }}
           </p>

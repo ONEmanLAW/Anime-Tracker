@@ -6,7 +6,7 @@ export const useAnimeStore = defineStore({
   id: 'animeStore',
   state: () => ({
     animeList: [],
-    availableGenres: [],
+    apiUrl: 'https://api.jikan.moe/v4/anime',
   }),
   actions: {
     addAnime(anime) {
