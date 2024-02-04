@@ -5,12 +5,20 @@ import AnimeItem from '@/components/AnimeItem.vue';
 
 const animeStore = useAnimeStore();
 
+const allAnimeList = computed(() => {
+  return animeStore.getAnimeList();
+});
+
 const finishedAnimeList = computed(() => {
-  return animeStore.getAnimeList().filter(anime => anime.watched_episodes === anime.total_episodes);
+  return allAnimeList.value.filter(anime => anime.watched_episodes === anime.total_episodes);
+});
+
+const watchingAnimeList = computed(() => {
+  return allAnimeList.value.filter(anime => anime.watched_episodes > 0 && anime.watched_episodes < anime.total_episodes);
 });
 
 const unfinishedAnimeList = computed(() => {
-  return animeStore.getAnimeList().filter(anime => anime.watched_episodes !== anime.total_episodes);
+  return allAnimeList.value.filter(anime => anime.watched_episodes === 0 && !watchingAnimeList.value.includes(anime));
 });
 
 const updateAnime = (updatedAnime) => {
@@ -21,10 +29,6 @@ const updateAnime = (updatedAnime) => {
 const removeAnime = (animeId) => {
   animeStore.removeAnime(animeId);
 };
-
-// Exposez ces fonctions dans le scope global
-window.updateAnime = updateAnime;
-window.removeAnime = removeAnime;
 </script>
 
 <template>
@@ -36,6 +40,14 @@ window.removeAnime = removeAnime;
       <h2>Animes Finis</h2>
       <div class="results" v-if="finishedAnimeList.length > 0">
         <AnimeItem v-for="anime in finishedAnimeList" :key="anime.id" :anime="anime" @updateAnime="updateAnime" @removeAnime="removeAnime" />
+      </div>
+    </div>
+
+    <!-- Animes En Cours -->
+    <div>
+      <h2>Animes En Cours</h2>
+      <div class="results" v-if="watchingAnimeList.length > 0">
+        <AnimeItem v-for="anime in watchingAnimeList" :key="anime.id" :anime="anime" @updateAnime="updateAnime" @removeAnime="removeAnime" />
       </div>
     </div>
 
