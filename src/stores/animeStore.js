@@ -1,5 +1,3 @@
-// animeStore.js
-
 import { defineStore } from 'pinia';
 
 export const useAnimeStore = defineStore({
