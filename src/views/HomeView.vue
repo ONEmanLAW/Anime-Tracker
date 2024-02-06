@@ -42,21 +42,42 @@
         placeholder="search for an anime ..." 
         v-model="query" 
         @input="handleInput" />
-      <button type="submit">Search</button>
+      <button type="submit" class="button">Search</button>
     </form>
 
     <div class="results" v-if="search_results.length > 0">
       <div class="result" v-for="anime in search_results" :key="anime.id">
         <img :src="anime.images.jpg.image_url" />
         <div class="details">
-          <h3>{{ anime.title }}</h3>
+          <h3>{{ anime.title }} :</h3>
           <p :title="anime.synopsis" v-if="anime.synopsis">
-            {{ anime.synopsis.slice(0, 120) }}
+            {{ anime.synopsis.length > 450 ? anime.synopsis.slice(0, 450) + ' ...' : anime.synopsis }}
           </p>
           <span class="flex-1"></span>
-          <button @click="addAnime(anime)">Add to My Anime</button>
+          <button class="button" @click="addAnime(anime)">Add to My Anime</button>
         </div>
       </div>
     </div>
   </main>
 </template>
+
+<style pointer>
+  form {
+    display: flex;
+    max-width: 480px;
+    margin: 0 auto 1.5rem;
+  }
+
+  form input {
+    appearance: none;
+    outline: none;
+    border: none;
+    background: white;
+
+    display: block;
+    color: #888;
+    font-size: 1.125rem;
+    padding: 0.5rem 1rem;
+    width: 100%;
+  }
+</style>

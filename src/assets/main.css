@@ -1,1 +1,78 @@
 @import './base.css';
+
+h1 {
+text-align: center;
+margin-bottom: 1.5rem;
+}
+
+.button {
+appearance: none;
+outline: none;
+border: none;
+cursor: pointer;
+background: none;
+
+display: block;
+padding: 0.5rem 1rem;
+background-image: linear-gradient(to right, deeppink 50%, darkviolet 50%);
+background-size: 200%;
+color: #fff;
+font-size: 1.125rem;
+font-weight: 700;
+text-transform: uppercase;
+transform: 0.4s;
+}
+
+.button:hover {
+background-position: right;
+}
+
+.results {
+background-color: #fff;
+border-radius: 0.5rem;
+box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+margin-bottom: 1.5rem;
+}
+
+.result {
+display: flex;
+margin: 1rem;
+padding: 1rem;
+border: 1px solid #eee;
+border-radius: 0.5rem;
+transition: 0.4s;
+}
+
+.result img {
+  width: 200px;
+  border-radius: 1rem;
+  margin-right: 1rem;
+}
+
+.details {
+  flex: 1 1 0%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.flex-1 {
+  flex: 1 1 0%;
+}
+
+.details h3 {
+  font-size: 1.25rem;
+  margin-bottom: 0.5rem;
+  text-decoration: underline;
+  color: #303030;
+}
+
+.details p {
+  font-size: 0.875rem;
+  line-height: 1.4;
+  margin-bottom: 0.5rem;
+}
+
+.details .button {
+  margin-left: auto;
+}

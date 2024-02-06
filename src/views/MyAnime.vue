@@ -60,3 +60,7 @@ const removeAnime = (animeId) => {
     </div>
   </main>
 </template>
+
+<style pointer>
+  
+</style>
