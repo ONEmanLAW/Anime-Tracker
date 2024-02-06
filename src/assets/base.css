@@ -1,7 +1,7 @@
 :root {
-  --sidebar-bg-color: #cf0a0a;
-  --sidebar-bg-hover: #dfdcdc;
-  --sidebar-bg-active: #000000;
+  --sidebar-bg-color: black;
+  --sidebar-bg-hover: gray;
+  --sidebar-bg-active: lightgray;
 }
 
 * {
