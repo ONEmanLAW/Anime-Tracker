@@ -86,13 +86,13 @@
     -webkit-appearance: menulist-button; 
     appearance: menulist-button;
     padding: 5px;
-    background-color: darkviolet;
+    background-color: black;
     color: white;
   }
 
   option {
     color: #fff;
-    background: darkviolet;
+    background: gray;
   }
 
   .remove-button {

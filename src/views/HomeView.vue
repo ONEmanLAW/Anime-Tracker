@@ -1,6 +1,7 @@
 <script setup>
   import { ref } from 'vue'
   import { useAnimeStore } from '@/stores/animeStore'
+  
 
   const query = ref('')
   const search_results = ref([])
@@ -51,7 +52,7 @@
         <div class="details">
           <h3>{{ anime.title }} :</h3>
           <p :title="anime.synopsis" v-if="anime.synopsis">
-            {{ anime.synopsis.length > 450 ? anime.synopsis.slice(0, 450) + ' ...' : anime.synopsis }}
+            {{ anime.synopsis.length > 150 ? anime.synopsis.slice(0, 150) + ' ...' : anime.synopsis }}
           </p>
           <span class="flex-1"></span>
           <button class="button" @click="addAnime(anime)">Add to My Anime</button>
@@ -61,7 +62,7 @@
   </main>
 </template>
 
-<style pointer>
+<style scoped>
   form {
     display: flex;
     max-width: 480px;

@@ -1,10 +1,18 @@
 import { ref, computed } from 'vue'
 
-export const collapsed = ref(false)
+const COLLAPSE_THRESHOLD = 700;
+
+
+const isInitiallyCollapsed = window.innerWidth <= COLLAPSE_THRESHOLD;
+
+export const collapsed = ref(isInitiallyCollapsed)
+
 export const toggleSidebar = () => (collapsed.value = !collapsed.value)
 
-export const SIDEBAR_WIDTH = 180
-export const SIDEBAR_WIDTH_COLLAPSED = 38
-export const sidebarWidth = computed (
-  () => `${collapsed.value ? SIDEBAR_WIDTH_COLLAPSED : SIDEBAR_WIDTH}px`
-)
+export const sidebarWidth = computed(() => {
+  return collapsed.value ? '50px' : '180px'; 
+})
+
+window.addEventListener('resize', () => {
+  collapsed.value = window.innerWidth <= COLLAPSE_THRESHOLD;
+});

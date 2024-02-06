@@ -1,6 +1,13 @@
 <script setup>
   import SidebarLink from './SidebarLink.vue';
   import { collapsed, toggleSidebar, sidebarWidth } from './state';
+
+  defineProps({
+    to: {
+      type: String,
+      required: true
+    }
+  });
 </script>
 
 
@@ -8,10 +15,10 @@
   <div class="sidebar" :style="{ width: sidebarWidth }">
     <h1>
       <span v-if="collapsed">
-        <div>A</div>
-        <div>T</div>
+        <div>S</div>
+        <div>b</div>
       </span>
-      <span v-else>Anime Tracker</span>
+      <span v-else>Sidebar :</span>
     </h1>
 
     <SidebarLink to="/">Anime</SidebarLink>

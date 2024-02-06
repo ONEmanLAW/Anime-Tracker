@@ -37,7 +37,7 @@ const removeAnime = (animeId) => {
 
     <!-- Animes Finis -->
     <div>
-      <h2>Animes Finis</h2>
+      <h2>Animes Finis :</h2>
       <div class="results" v-if="finishedAnimeList.length > 0">
         <AnimeItem v-for="anime in finishedAnimeList" :key="anime.id" :anime="anime" @updateAnime="updateAnime" @removeAnime="removeAnime" />
       </div>
@@ -45,7 +45,7 @@ const removeAnime = (animeId) => {
 
     <!-- Animes En Cours -->
     <div>
-      <h2>Animes En Cours</h2>
+      <h2>Animes En Cours :</h2>
       <div class="results" v-if="watchingAnimeList.length > 0">
         <AnimeItem v-for="anime in watchingAnimeList" :key="anime.id" :anime="anime" @updateAnime="updateAnime" @removeAnime="removeAnime" />
       </div>
@@ -53,7 +53,7 @@ const removeAnime = (animeId) => {
 
     <!-- Animes Non Finis -->
     <div>
-      <h2>Animes Non Finis</h2>
+      <h2>Animes Non Finis :</h2>
       <div class="results" v-if="unfinishedAnimeList.length > 0">
         <AnimeItem v-for="anime in unfinishedAnimeList" :key="anime.id" :anime="anime" @updateAnime="updateAnime" @removeAnime="removeAnime" />
       </div>
