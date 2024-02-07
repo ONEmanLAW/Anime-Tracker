@@ -1,23 +1,2 @@
-:root {
-  --sidebar-bg-color: black;
-  --sidebar-bg-hover: gray;
-  --sidebar-bg-active: lightgray;
-}
 
-* {
-  margin: 0;
-  padding:0;
-  box-sizing: border-box;
-  font-family: system-ui;
-}
-
-body {
-  background-color: #eee;
-}
-
-main {
-  margin: 0 auto;
-  max-width: 768px;
-  padding: 1.5rem;
-}
 
