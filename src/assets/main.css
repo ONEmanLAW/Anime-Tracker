@@ -6,47 +6,54 @@ margin-bottom: 1.5rem;
 }
 
 .button {
-appearance: none;
-outline: none;
-border: none;
-cursor: pointer;
-background: none;
+  appearance: none;
+  outline: none;
+  border: none;
+  cursor: pointer;
+  background: none;
 
-display: block;
-padding: 0.5rem 1rem;
-background: black;
-color: #fff;
-font-size: 1.125rem;
-font-weight: 700;
-text-transform: uppercase;
-transform: 0.4s;
+  display: block;
+  padding: 0.5rem 0.5rem;
+  background: var(--dark);
+  background-size: 200%;
+  color: var(--light);
+  font-size: 1rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  transition: opacity, background-color 0.125s;
 }
 
 .button:hover {
-  background-color: gray;
+  background-color: var(--dark-alt);
   background-position: right;
 }
 
 .button:active {
-  background-color: lightgray;
+  opacity: 0.8;
 }
 
+
+
+
+
+
+
+
 .results {
-background-color: #fff;
-border-radius: 0.5rem;
-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-margin-bottom: 1.5rem;
-min-width: 400px;
+  background-color: var(--light);
+  border-radius: 0.5rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-bottom: 1.5rem;
+  min-width: 400px;
+  margin-left: 42px;
 }
 
 .result {
-display: flex;
-margin: 1rem;
-padding: 1rem;
-border: 1px solid #eee;
-border-radius: 0.5rem;
-transition: 0.4s;
-
+  display: flex;
+  margin: 1rem;
+  padding: 0.5rem;
+  border: 1px solid var(--grey);
+  border-radius: 6px;
 }
 
 .result img {
@@ -82,4 +89,31 @@ transition: 0.4s;
 
 .details .button {
   margin-left: auto;
+  margin-right: auto;
 }
+
+
+@media screen and (max-width: 768px) {
+  form {
+    max-width: calc(100% - 70px); 
+  }
+
+  form input {
+    max-width: 100%;  
+  }
+
+  .results {
+    margin-left: 36px; 
+  }
+
+  .result {
+    flex-direction: column;
+    align-items: center;
+  }
+  .result img {
+    margin-right: 0;
+    margin-bottom: 1rem;
+  }
+}
+
+

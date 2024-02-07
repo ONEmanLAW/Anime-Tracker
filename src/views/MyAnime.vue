@@ -62,5 +62,5 @@ const removeAnime = (animeId) => {
 </template>
 
 <style pointer>
-  
+
 </style>

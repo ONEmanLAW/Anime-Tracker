@@ -28,7 +28,13 @@
   };
 
   const removeAnime = () => {
-    emit('removeAnime', props.anime.id);
+    const confirmDelete = confirm(`Voulez-vous vraiment supprimer "${props.anime.title}" de votre liste ?`);
+    if (confirmDelete) {
+      setTimeout(() => {
+        emit('removeAnime', props.anime.id);
+        alert(`"${props.anime.title}" a été supprimé de votre liste.`);
+      }, 500);
+    }
   };
 </script>
 

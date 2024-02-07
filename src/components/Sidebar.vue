@@ -13,22 +13,22 @@
     <h3>Sidebar</h3>
     <div class="menu">
       <router-link class="button" to="/">
-        <span class="material-icons">home</span>
+        <span class="material-icons">add_box</span>
         <span class="text">Anime</span>
       </router-link>
 
       <router-link class="button" to="/myanime">
-        <span class="material-icons">visibility</span>
+        <span class="material-icons">list_alt</span>
         <span class="text">MyAnime</span>
       </router-link>
 
       <router-link class="button" to="/dashboard">
-        <span class="material-icons">group</span>
+        <span class="material-icons">dashboard</span>
         <span class="text">Dashboard</span>
       </router-link>
 
       <router-link class="button" to="/suggestion">
-        <span class="material-icons">email</span>
+        <span class="material-icons">legend_toggle</span>
         <span class="text">Suggestion</span>
       </router-link>
     </div>
@@ -167,7 +167,7 @@
       }
     }
 
-    @media (max-width: 768px) {
+    @media (max-width: 2500px) {
       position: fixed;
       z-index: 99;
     }
