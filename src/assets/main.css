@@ -45,7 +45,7 @@ margin-bottom: 1.5rem;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   margin-bottom: 1.5rem;
   min-width: 400px;
-  margin-left: 42px;
+  margin-left: 40px;
 }
 
 .result {
@@ -54,6 +54,7 @@ margin-bottom: 1.5rem;
   padding: 0.5rem;
   border: 1px solid var(--grey);
   border-radius: 6px;
+  margin-right: 100px;
 }
 
 .result img {

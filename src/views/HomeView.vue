@@ -130,4 +130,14 @@ const addAnime = anime => {
 .success-message p {
   margin: 0; 
 }
+
+@media screen and (max-width: 768px) {
+  form {
+    max-width: calc(100% - 70px); 
+  }
+
+  form input {
+    max-width: 100%;  
+  }
+}
 </style>
