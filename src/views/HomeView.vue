@@ -1,32 +1,68 @@
-<script setup>
-  import { ref } from 'vue'
-import { useAnimeStore } from '@/stores/animeStore'
+<template>
+  <main>
+    <h1>My Anime Tracker</h1>
 
-const query = ref('')
-const search_results = ref([])
-const searching = ref(false)
-const animeAdded = ref(false)
-const successMessage = ref('')
-const animeStore = useAnimeStore()
+    <form @submit.prevent="searchAnime">
+      <input 
+        type="text"
+        placeholder="Search for an anime ..." 
+        v-model="query" 
+        @input="handleInput" />
+      <button type="submit" class="button">Search</button>
+    </form>
+
+    <div class="empty-results" v-if="search_results.length === 0">
+      <p>No results found.</p>
+    </div>
+
+    <div class="results" v-if="search_results.length > 0">
+      <div class="result" v-for="anime in search_results" :key="anime.id">
+        <img :src="anime.images.jpg.image_url" />
+        <div class="details">
+          <h3>{{ anime.title }}</h3>
+          <p :title="anime.synopsis" v-if="anime.synopsis">
+            {{ anime.synopsis.length > 150 ? anime.synopsis.slice(0, 150) + ' ...' : anime.synopsis }}
+          </p>
+          <div class="genres">
+            <span class="genre" v-for="(genre, index) in anime.genres" :key="index">
+              {{ genre.name }}{{ index !== anime.genres.length - 1 ? ' ' : '' }}
+            </span>
+          </div>
+          <span class="flex-1"></span>
+          <button class="button" @click="addAnime(anime)">Add to My Anime</button>
+        </div>
+      </div>
+    </div>
+  </main>
+</template>
+
+<script setup>
+import { useAnimeStore } from '@/stores/animeStore';
+import { ref } from 'vue';
+
+const animeStore = useAnimeStore();
+const query = ref('');
+const search_results = ref([]);
+const searching = ref(false);
 
 const searchAnime = () => {
-  searching.value = true
-  const url = `${animeStore.apiUrl}?q=${query.value}`
+  searching.value = true;
+  const url = `${animeStore.apiUrl}?q=${query.value}`;
   fetch(url)
     .then(res => res.json())
     .then(res => {
-      search_results.value = res.data || []
+      search_results.value = res.data || [];
     })
     .finally(() => {
-      searching.value = false
-    })
-}
+      searching.value = false;
+    });
+};
 
 const handleInput = event => {
   if (!event.target.value) {
-    search_results.value = []
+    search_results.value = [];
   }
-}
+};
 
 const addAnime = anime => {
   animeStore.addAnime({
@@ -35,50 +71,10 @@ const addAnime = anime => {
     image: anime.images.jpg.image_url,
     total_episodes: anime.episodes,
     watched_episodes: 0,
-  })
-  animeAdded.value = true
-  successMessage.value = `Vous avez ajouté "${anime.title}" à votre liste.`
-  setTimeout(() => {
-    animeAdded.value = false
-  }, 3000)
-}
+    genres: anime.genres.map(genre => genre.name),
+  });
+};
 </script>
-
-<template>
-  <main>
-    <h1>My Anime Tracker</h1>
-
-    <form @submit.prevent="searchAnime">
-      <input 
-        type="text"
-        placeholder="search for an anime ..." 
-        v-model="query" 
-        @input="handleInput" />
-      <button type="submit" class="button">Search</button>
-    </form>
-
-    <div class="empty-results" v-if="search_results.length === 0">
-      <p>0 films affichés</p>
-    </div>
-
-    <div class="results" v-if="search_results.length > 0">
-      <div class="result" v-for="anime in search_results" :key="anime.id">
-        <img :src="anime.images.jpg.image_url" />
-        <div class="details">
-          <h3>{{ anime.title }} :</h3>
-          <p :title="anime.synopsis" v-if="anime.synopsis">
-            {{ anime.synopsis.length > 150 ? anime.synopsis.slice(0, 150) + ' ...' : anime.synopsis }}
-          </p>
-          <span class="flex-1"></span>
-          <button class="button" @click="addAnime(anime)">Add to My Anime</button>
-        </div>
-      </div>
-    </div>
-    <div class="success-message" v-if="animeAdded">
-      <p>{{ successMessage }}</p>
-    </div>
-  </main>
-</template>
 
 <style scoped>
   form {
@@ -129,6 +125,18 @@ const addAnime = anime => {
 
 .success-message p {
   margin: 0; 
+}
+
+.genres {
+  margin-top: 0.5rem;
+}
+
+.genre {
+  margin-right: 0.5rem;
+  background-color: var(--primary);
+  padding: 0.2rem 0.5rem;
+  border-radius: 0.3rem;
+  display: inline-block;
 }
 
 @media screen and (max-width: 768px) {
