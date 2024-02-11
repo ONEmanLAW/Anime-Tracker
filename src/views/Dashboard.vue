@@ -1,83 +1,3 @@
-<script setup>
-  import { useAnimeStore } from '@/stores/animeStore';
-  import Chart from 'chart.js/auto';
-  import { computed, onMounted } from 'vue';
-
-  const animeStore = useAnimeStore();
-
-  const totalWatchedEpisodes = computed(() => {
-    const animeList = animeStore.getAnimeList();
-    return animeList.reduce((total, anime) => total + anime.watched_episodes, 0);
-  });
-
-  const totalCompletedAnime = computed(() => {
-    const animeList = animeStore.getAnimeList();
-    return animeList.filter(anime => anime.watched_episodes === anime.total_episodes).length;
-  });
-
-  const totalOngoingAnime = computed(() => {
-    const animeList = animeStore.getAnimeList();
-    return animeList.filter(anime => anime.watched_episodes < anime.total_episodes && anime.watched_episodes > 0).length;
-  });
-
-
-
-  const createPieChart = () => {
-  const data = {
-    labels: ['Ongoing animes', 'Viewed Anime'],
-    datasets: [{
-      label: 'Amount',
-      data: [totalOngoingAnime.value, totalCompletedAnime.value],
-      backgroundColor: [
-        'rgb(74, 102, 228)',
-        'rgb(54, 162, 235)'
-      ],
-      hoverOffset: 4
-    }]
-  };
-  
-  const config = {
-  type: 'pie',
-  data: data,
-  options: {
-    responsive: false,
-    plugins: {
-      title: {
-        display: true,
-        text: 'Chart of animes'
-      }
-    }
-  }
-};
-  
-  const pieChartCanvas = document.getElementById('pieChart');
-  if (pieChartCanvas) {
-    new Chart(pieChartCanvas, config);
-  }
-};
-
-onMounted(() => {
-  createPieChart();
-});
-
-
-const allGenres = computed(() => {
-  return animeStore.getAnimeList().flatMap(anime => anime.genres || []);
-});
-
-const mostFrequentGenres = computed(() => {
-  const genreCount = {};
-  allGenres.value.forEach(genre => {
-    genreCount[genre] = (genreCount[genre] || 0) + 1;
-  });
-
-  const maxCount = Math.max(...Object.values(genreCount));
-  return Object.keys(genreCount).filter(genre => genreCount[genre] === maxCount);
-});
-
-</script>
-
-
 <template>
   <div class="dashboard">
     <h1>Dashboard</h1>
@@ -110,14 +30,153 @@ const mostFrequentGenres = computed(() => {
       <ul>
         <li v-for="(genre, index) in mostFrequentGenres" :key="index">{{ genre }}</li>
       </ul>
+      <!-- Première pie chart pour la répartition des animes terminés et en cours -->
       <div class="chart-container">
         <canvas id="pieChart"></canvas>
+      </div>
+      <!-- Deuxième pie chart pour la répartition des genres -->
+      <div class="chart-container">
+        <canvas id="pieChart2"></canvas>
       </div>
     </div>
   </div>
 </template>
 
-<style pointer>
+<script setup>
+  import { useAnimeStore } from '@/stores/animeStore';
+  import Chart from 'chart.js/auto';
+  import { computed, onMounted } from 'vue';
+
+  const animeStore = useAnimeStore();
+
+  // Calcul du nombre total d'épisodes regardés
+  const totalWatchedEpisodes = computed(() => {
+    const animeList = animeStore.getAnimeList();
+    return animeList.reduce((total, anime) => total + anime.watched_episodes, 0);
+  });
+
+  // Calcul du nombre total d'animes terminés
+  const totalCompletedAnime = computed(() => {
+    const animeList = animeStore.getAnimeList();
+    return animeList.filter(anime => anime.watched_episodes === anime.total_episodes).length;
+  });
+
+  // Calcul du nombre total d'animes en cours
+  const totalOngoingAnime = computed(() => {
+    const animeList = animeStore.getAnimeList();
+    return animeList.filter(anime => anime.watched_episodes < anime.total_episodes && anime.watched_episodes > 0).length;
+  });
+
+  // Création de la première pie chart pour la répartition des animes terminés et en cours
+  const createPieChart = () => {
+    const data = {
+      labels: ['Ongoing animes', 'Viewed Anime'],
+      datasets: [{
+        label: 'Amount',
+        data: [totalOngoingAnime.value, totalCompletedAnime.value],
+        backgroundColor: [
+          'rgb(74, 102, 228)',
+          'rgb(54, 162, 235)'
+        ],
+        hoverOffset: 4
+      }]
+    };
+
+    const config = {
+      type: 'pie',
+      data: data,
+      options: {
+        responsive: false,
+        plugins: {
+          title: {
+            display: true,
+            text: 'Chart of animes'
+          }
+        }
+      }
+    };
+
+    const pieChartCanvas = document.getElementById('pieChart');
+    if (pieChartCanvas) {
+      new Chart(pieChartCanvas, config);
+    }
+  };
+
+  // Appel de la fonction de création de la première pie chart lors du montage du composant
+  onMounted(() => {
+    createPieChart();
+  });
+
+  // Calcul des genres des animes dans la collection
+  const allGenres = computed(() => {
+    return animeStore.getAnimeList().flatMap(anime => anime.genres || []);
+  });
+
+  // Calcul des genres les plus fréquents
+  const genreCount = computed(() => {
+    const count = {};
+    allGenres.value.forEach(genre => {
+      count[genre] = (count[genre] || 0) + 1;
+    });
+    return count;
+  });
+
+  // Séparation des labels et des données pour la deuxième pie chart
+  const genreLabels = Object.keys(genreCount.value);
+  const genreData = Object.values(genreCount.value);
+
+  // Création de la deuxième pie chart pour la répartition des genres
+  const createGenrePieChart = () => {
+    const data = {
+      labels: genreLabels,
+      datasets: [{
+        label: 'Genre Count',
+        data: genreData,
+        backgroundColor: [
+          'rgb(255, 99, 132)',
+          'rgb(54, 162, 235)',
+          'rgb(255, 205, 86)',
+          'rgb(75, 192, 192)',
+          'rgb(153, 102, 255)',
+          'rgb(255, 159, 64)'
+        ],
+        hoverOffset: 4
+      }]
+    };
+
+    const config = {
+      type: 'pie',
+      data: data,
+      options: {
+        responsive: false,
+        plugins: {
+          title: {
+            display: true,
+            text: 'Chart of genres'
+          }
+        }
+      }
+    };
+
+    const pieChartCanvas = document.getElementById('pieChart2');
+    if (pieChartCanvas) {
+      new Chart(pieChartCanvas, config);
+    }
+  };
+
+  // Appel de la fonction de création de la deuxième pie chart lors du montage du composant
+  onMounted(() => {
+    createGenrePieChart();
+  });
+
+  // Calcul des genres les plus fréquents
+  const mostFrequentGenres = computed(() => {
+    const maxCount = Math.max(...Object.values(genreCount.value));
+    return genreLabels.filter(genre => genreCount.value[genre] === maxCount);
+  });
+</script>
+
+<style>
   .dashboard {
     text-align: center;
     padding: 20px;
@@ -180,6 +239,4 @@ const mostFrequentGenres = computed(() => {
     color: #666;
     margin-bottom: 5px;
   }
-
 </style>
-
