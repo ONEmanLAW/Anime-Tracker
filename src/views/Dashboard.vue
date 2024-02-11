@@ -24,7 +24,7 @@
 
   const createPieChart = () => {
   const data = {
-    labels: ['Animes en cours', 'Viewed Anime'],
+    labels: ['Ongoing animes', 'Viewed Anime'],
     datasets: [{
       label: 'Amount',
       data: [totalOngoingAnime.value, totalCompletedAnime.value],
