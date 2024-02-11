@@ -80,7 +80,7 @@ const addAnime = anime => {
   showSuccessMessage.value = true;
   setTimeout(() => {
     showSuccessMessage.value = false;
-  }, 2000); // Hide the message after 2 seconds
+  }, 2000);
 };
 </script>
 
