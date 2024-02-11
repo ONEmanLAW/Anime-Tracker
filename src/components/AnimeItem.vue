@@ -11,9 +11,16 @@
     localStorage.setItem('animeRating_' + props.anime.id, props.anime.rating);
   });
   
+
+
+  // J'ai tenté de résoudre le problème mais sans succès. :(
   const updateRating = () => {
+  // Ne mettez à jour le localStorage que si la note a été modifiée
+  const storedRating = localStorage.getItem('animeRating_' + props.anime.id);
+  if (storedRating !== props.anime.rating) {
     localStorage.setItem('animeRating_' + props.anime.id, props.anime.rating);
-  };
+  }
+};
 
   const increaseWatch = () => {
     props.anime.watched_episodes++;
