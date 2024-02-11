@@ -33,6 +33,9 @@
         </div>
       </div>
     </div>
+    <div class="success-message" v-if="showSuccessMessage">
+      <p>Anime added successfully!</p>
+    </div>
   </main>
 </template>
 
@@ -44,6 +47,7 @@ const animeStore = useAnimeStore();
 const query = ref('');
 const search_results = ref([]);
 const searching = ref(false);
+const showSuccessMessage = ref(false);
 
 const searchAnime = () => {
   searching.value = true;
@@ -73,6 +77,10 @@ const addAnime = anime => {
     watched_episodes: 0,
     genres: anime.genres.map(genre => genre.name),
   });
+  showSuccessMessage.value = true;
+  setTimeout(() => {
+    showSuccessMessage.value = false;
+  }, 2000); // Hide the message after 2 seconds
 };
 </script>
 
@@ -120,7 +128,6 @@ const addAnime = anime => {
   padding: 20px;
   border-radius: 5px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-  font-family: Arial, sans-serif; 
 }
 
 .success-message p {
