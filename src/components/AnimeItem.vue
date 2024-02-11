@@ -44,6 +44,11 @@
     <img :src="anime.image" />
     <div class="details">
       <h3>{{ anime.title }} :</h3>
+      <div class="genres">
+        <span class="genre" v-for="(genre, index) in anime.genres" :key="index">
+          {{ genre }}
+        </span>
+      </div>
       <span class="episodes">
         {{ anime.watched_episodes }} / {{ anime.total_episodes }}
       </span>
@@ -67,6 +72,7 @@
 <style scoped>
   .episodes {
     color: #888;
+    margin-top: 5px;
   }
   .episodes-buttons {
     display: flex;

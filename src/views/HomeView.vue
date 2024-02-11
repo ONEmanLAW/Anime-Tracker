@@ -134,18 +134,6 @@ const addAnime = anime => {
   margin: 0; 
 }
 
-.genres {
-  margin-top: 0.5rem;
-}
-
-.genre {
-  margin-right: 0.5rem;
-  background-color: var(--primary);
-  padding: 0.2rem 0.5rem;
-  border-radius: 0.3rem;
-  display: inline-block;
-}
-
 @media screen and (max-width: 768px) {
   form {
     max-width: calc(100% - 70px); 
