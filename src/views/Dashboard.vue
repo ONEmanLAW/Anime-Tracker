@@ -60,6 +60,21 @@ onMounted(() => {
   createPieChart();
 });
 
+
+const allGenres = computed(() => {
+  return animeStore.getAnimeList().flatMap(anime => anime.genres || []);
+});
+
+const mostFrequentGenres = computed(() => {
+  const genreCount = {};
+  allGenres.value.forEach(genre => {
+    genreCount[genre] = (genreCount[genre] || 0) + 1;
+  });
+
+  const maxCount = Math.max(...Object.values(genreCount));
+  return Object.keys(genreCount).filter(genre => genreCount[genre] === maxCount);
+});
+
 </script>
 
 
@@ -91,6 +106,10 @@ onMounted(() => {
           <p class="stat-value">{{ totalOngoingAnime }}</p>
         </div>
       </div>
+      <h2>Genres les plus fréquents :</h2>
+      <ul>
+        <li v-for="(genre, index) in mostFrequentGenres" :key="index">{{ genre }}</li>
+      </ul>
       <div class="chart-container">
         <canvas id="pieChart"></canvas>
       </div>
