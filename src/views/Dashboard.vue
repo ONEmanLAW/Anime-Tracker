@@ -117,7 +117,7 @@ const mostFrequentGenres = computed(() => {
   </div>
 </template>
 
-<style>
+<style pointer>
   .dashboard {
     text-align: center;
     padding: 20px;
@@ -161,5 +161,25 @@ const mostFrequentGenres = computed(() => {
   .chart-container {
     margin-top: 20px;
   }
+
+  h2 {
+    font-size: 1.5rem;
+    color: #333;
+    margin-top: 30px;
+    margin-bottom: 10px;
+  }
+
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  li {
+    font-size: 1.2rem;
+    color: #666;
+    margin-bottom: 5px;
+  }
+
 </style>
 
